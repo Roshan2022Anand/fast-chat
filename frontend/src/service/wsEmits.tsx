@@ -1,12 +1,11 @@
-import type { wsEvent } from "../frontend/src/utils/Type";
 import { useWsContext } from "../providers/context/socket/config";
+import type { wsEvent } from "../utils/Type";
 
 const useWsEmitService = () => {
   const { socket } = useWsContext();
 
+  //to emit the data to ws server
   const wsEmit = (data: wsEvent) => {
-    console.log("sending data to ws server", data);
-
     if (!socket) {
       console.error("WebSocket is null - unable to send message");
       return;
@@ -20,7 +19,27 @@ const useWsEmitService = () => {
     socket.send(JSON.stringify(data));
   };
 
-  return { wsEmit };
+  //to send msg
+  const sendMsg = (msg: string, to: string) => {
+    const payload: wsEvent = {
+      event: "msg:sent",
+      data: {
+        msg,
+        to,
+      },
+    };
+    wsEmit(payload);
+  };
+
+  const getOnline = () => {
+    const payload: wsEvent = {
+      event: "online",
+      data: {},
+    };
+    wsEmit(payload);
+  };
+
+  return { wsEmit, sendMsg, getOnline };
 };
 
 export default useWsEmitService;

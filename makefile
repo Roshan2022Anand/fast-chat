@@ -1,6 +1,6 @@
-server :
-	@clear \
-	&& cd backend \
+socket-server :
+	clear \
+	&& cd socket-service \
 	&& go build -o server cmd/main.go \
 	&& ./server \
 

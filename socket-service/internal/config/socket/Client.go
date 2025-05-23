@@ -2,7 +2,6 @@ package socket
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
@@ -17,12 +16,13 @@ const (
 	maxMessageSize = 512
 )
 
+var Clients = make(map[string]*Client)
+
 type Client struct {
-	hub    *Hub
-	conn   *websocket.Conn
-	send   chan []byte
-	email  string
-	roomID string
+	hub   *Hub
+	conn  *websocket.Conn
+	send  chan []byte
+	email string
 }
 
 type WsEvent struct {
@@ -58,7 +58,16 @@ func (c *Client) readPump() {
 			continue
 		}
 
-		fmt.Println("event : ", ev)
+		switch ev.Event {
+		case "user":
+			email := ev.Data["email"]
+			c.email = email
+			Clients[email] = c
+		case "msg:sent":
+			c.hub.sendMsg(c, &ev)
+		case "online":
+			c.hub.getOnlineUsers(c)
+		}
 	}
 }
 

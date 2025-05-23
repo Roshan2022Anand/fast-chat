@@ -33,10 +33,12 @@ func (h *Hub) Run() {
 		case client := <-h.unregister:
 			h.mu.Lock()
 			if _, ok := h.clients[client]; ok {
+				delete(Clients, client.email)
 				delete(h.clients, client)
 				close(client.send)
+
+				fmt.Println("client unregistered", client.conn.RemoteAddr())
 			}
-			fmt.Println("client unregistered", client.conn.RemoteAddr())
 			h.mu.Unlock()
 		}
 	}

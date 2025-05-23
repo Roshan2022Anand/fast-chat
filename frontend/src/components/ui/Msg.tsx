@@ -1,15 +1,15 @@
-export const SentMsg = () => {
-  return (
-    <figure className="bg-sent-msg w-fit px-2 rounded-md ml-auto my-1 rounded-tr-none">
-      some random msg
-    </figure>
-  );
-};
+import type { msg } from "../../utils/Type";
 
-export const RecvMsg = () => {
+export const ChatMsg = ({ msg }: { msg: msg }) => {
   return (
-    <figure className="grad2 w-fit px-2 rounded-md my-1 rounded-tl-none">
-      some ransom msg
+    <figure
+      className={`w-fit px-2 rounded-md my-1 ${
+        msg.type == "sent"
+          ? " bg-sent-msg ml-auto rounded-tr-none"
+          : " grad2 rounded-tl-none"
+      }`}
+    >
+      {msg.msg}
     </figure>
   );
 };

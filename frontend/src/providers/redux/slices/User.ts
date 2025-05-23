@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { generateID } from "../../../utils/IDgenerator";
 
 interface UserState {
   name: string;
@@ -6,8 +7,8 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  name: "",
-  email: "",
+  name: "User-" + generateID(2),
+  email: generateID(3) + "@gmail.com",
 };
 
 export const userSlice = createSlice({
