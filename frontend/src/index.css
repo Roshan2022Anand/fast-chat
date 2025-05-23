@@ -1,22 +1,43 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #1f2022;
-  --secondary: #6c757d;
-  --txt: #ffffff;
-  --accent: #6c757d;
+  --bg-prime: #1b1a1e;
+  --side: #1f1f21;
+  --sent-msg: #2c2b31;
+  --inp-msg: #26262e;
+  --inp-srch: #2a2a2c;
+}
 
-  --head-font: "Poppins", sans-serif;
-  --body-font: "Open Sans", sans-serif;
-  --accent-font: "Roboto", sans-serif;
+@theme {
+  --color-prime: var(--bg-prime);
+  --color-side: var(--side);
+  --color-sent-msg: var(--sent-msg);
+  --color-inp-msg: var(--inp-msg);
+  --color-inp-srch: var(--inp-srch);
+}
+
+.grad1 {
+  background: #f6747c;
+  background: linear-gradient(
+    119deg,
+    rgba(246, 116, 124, 1) 39%,
+    rgba(245, 86, 153, 1) 82%
+  );
+}
+
+.grad2 {
+  background: #6e64f0;
+  background: linear-gradient(
+    119deg,
+    rgba(110, 100, 240, 1) 39%,
+    rgba(184, 80, 233, 1) 82%
+  );
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 html {
@@ -28,8 +49,8 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeSpeed;
-  background-color: var(--primary);
-  color: var(--txt);
+  background-color: black;
+  color: rgb(231, 228, 222);
 }
 
 img,
@@ -75,7 +96,6 @@ p {
   height: clamp(1.25rem, 0.8rem + 1vw, 1.75rem);
 }
 
-/* Ensure minimum touch target size */
 .click-icon {
   min-width: 48px;
   min-height: 48px;
